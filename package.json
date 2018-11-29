@@ -1,0 +1,32 @@
+{
+  "name": "tidal-remote-streamer",
+  "version": "1.0.0",
+  "description": "Stream Tidal to a home server through a web interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "browserify -t vueify -e src/index.js | babel-minify --mangle false > public/bundle.js",
+    "dev": "watchify -t vueify -e src/index.js -o public/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montyanderson/tidal-remote-streamer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/montyanderson/tidal-remote-streamer/issues"
+  },
+  "homepage": "https://github.com/montyanderson/tidal-remote-streamer#readme",
+  "dependencies": {
+    "babel-minify": "^0.5.0",
+    "browserify": "^16.2.3",
+    "koa": "^2.6.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "socket.io": "^2.2.0",
+    "vue": "^2.5.17",
+    "vueify": "^9.4.1",
+    "watchify": "^3.11.0"
+  }
+}
