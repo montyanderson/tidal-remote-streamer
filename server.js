@@ -3,8 +3,6 @@ const Router = require('koa-router');
 const serve = require('koa-static');
 const axios = require('axios');
 const { spawn } = require('child_process');
-const Speaker = require('speaker');
-
 const Tidal = require('./lib/Tidal');
 
 const app = new Koa();
