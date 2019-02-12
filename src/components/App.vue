@@ -1,23 +1,49 @@
 <template>
-	<div class="container">
-		<h1>tidal-remote-streamer</h1>
+	<v-app>
+		<v-content>
 
-		<input v-model="query" v-on:keyup="search" type="text" class="form-control" placeholder="Search">
+	<v-layout row>
+		<v-flex xs12>
+			<v-card>
+				<v-toolbar color="cyan" dark>
+					<v-toolbar-title>tidal-remote-streamer</v-toolbar-title>
 
-		<h1 v-on:click="next">Next</h1>
+					<v-spacer></v-spacer>
+				</v-toolbar>
 
-		<div class="row container">
-			<div v-for="result in results" class="col-12">
-				<h4><span v-on:click="play(result)">{{result.title}}</span> <a v-on:click="pushToQueue(result)">Queue</a></h4>
-				<h5>
-					<span v-for="artist in result.artists" class="label label-default">
-						{{artist.name}}
-					</span>
-				</h5>
-			</div>
-		</div>
-	</div>
+				<v-text-field
+					v-model="query"
+					@keyup="search"
+	            ></v-text-field>
+
+				<v-list three-line>
+					<template v-for="(result, index) in results">
+						<v-list-tile
+							:key="result.id"
+							avatar
+							@click="play(result)"
+						>
+							<v-list-tile-avatar>
+								<img :src="albumArt(result.album.cover)">
+							</v-list-tile-avatar>
+
+							<v-list-tile-content>
+								<v-list-tile-title>{{result.title}}</v-list-tile-title>
+								<!--<a v-on:click="pushToQueue(result)">Queue</a>-->
+								<v-list-tile-sub-title>{{result.artists[0].name}}</v-list-tile-sub-title>
+							</v-list-tile-content>
+
+						</v-list-tile>
+					</template>
+				</v-list>
+			</v-card>
+		</v-flex>
+	</v-layout>
+
+</v-content>
+</v-app>
 </template>
+
 
 <script>
 const axios = require('axios');
@@ -63,6 +89,10 @@ module.exports = {
 			const { data } = await axios.get('/api/next');
 
 			this.queue = data;
+		},
+
+		albumArt(id) {
+			return `https://resources.tidal.com/images/${id.replace(/-/g, '/')}/320x320.jpg`;
 		}
 	}
 };

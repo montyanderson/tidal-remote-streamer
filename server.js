@@ -88,6 +88,7 @@ app.use(serve(`${__dirname}/public`));
 	const config = require('./.config.json');
 
 	await tidal.login(config.username, config.password);
+	console.log(await tidal.getTrackUrl('20556796'));
 
 	app.listen(config.port);
 })();
